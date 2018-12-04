@@ -20,9 +20,7 @@ public class ProductsServiceApplicationTests {
 
 	@Test
 	public void testFindProductById() {
-
 		String actual = productSearchSrv.find(100L);
-
 		Assert.assertEquals("STORM", actual);
 
 	}
@@ -30,7 +28,6 @@ public class ProductsServiceApplicationTests {
 	@Test
 	public void testFindAllProducts() {
 		Map<Long, String> productsMap = productSearchSrv.retrieveAll();
-
 		Assert.assertFalse(productsMap.isEmpty());
 	}
 
