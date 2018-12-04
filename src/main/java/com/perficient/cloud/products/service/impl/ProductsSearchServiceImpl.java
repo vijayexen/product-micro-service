@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.perficient.cloud.products.dao.ProductsSearchDao;
+import com.perficient.cloud.products.model.Product;
 import com.perficient.cloud.products.service.ProductsSearchService;
 
 public class ProductsSearchServiceImpl implements ProductsSearchService {
@@ -18,8 +19,8 @@ public class ProductsSearchServiceImpl implements ProductsSearchService {
 	}
 
 	@Override
-	public Map<Long, String> retrieveAll() {
-		return productSearchDao.findAllProducts();
+	public Map<Long, Product> retrieveAll() {
+		return null;//productSearchDao.findAllProducts();
 	}
 
 }

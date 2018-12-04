@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.perficient.cloud.products.model.Product;
 import com.perficient.cloud.products.service.ProductsSearchService;
 
 @RunWith(SpringRunner.class)
@@ -27,7 +28,7 @@ public class ProductsServiceApplicationTests {
 
 	@Test
 	public void testFindAllProducts() {
-		Map<Long, String> productsMap = productSearchSrv.retrieveAll();
+		Map<Long, Product> productsMap = null;//productSearchSrv.retrieveAll();
 		Assert.assertFalse(productsMap.isEmpty());
 	}
 

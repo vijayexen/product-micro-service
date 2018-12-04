@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.perficient.cloud.products.model.Product;
+
 @Service
 public interface ProductsSearchService {
 
@@ -17,10 +19,10 @@ public interface ProductsSearchService {
 	public String find(Long id);
 
 	/**
-	 * Retrieve all Product String with their product id's
+	 * Retrieve all Products with their product id's
 	 * 
-	 * @return Map of <Product ID, Product String>
+	 * @return Map of <Product ID, Product>
 	 */
-	public Map<Long, String> retrieveAll();
+	public Map<Long, Product> retrieveAll();
 
 }
