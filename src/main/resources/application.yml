@@ -1,5 +1,4 @@
 spring:
   application:
-    name: products-service
+    name: products-service  data:    mongodb:      uri: mongodb://pocspringapp:Spring%40Cloud1@cluster0-shard-00-00-pwcx3.mongodb.net:27017,cluster0-shard-00-01-pwcx3.mongodb.net:27017,cluster0-shard-00-02-pwcx3.mongodb.net:27017/abctelecom?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true
 server:  port: 0
-  
