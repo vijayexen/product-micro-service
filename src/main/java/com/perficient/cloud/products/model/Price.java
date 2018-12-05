@@ -2,7 +2,7 @@ package com.perficient.cloud.products.model;
 
 import java.math.BigDecimal;
 
-public class Price {
+public class Price extends MongoDbBase{
 
 	private BigDecimal basePrice;
 	private BigDecimal shippingCharge;

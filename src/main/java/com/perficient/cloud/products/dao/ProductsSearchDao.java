@@ -1,6 +1,7 @@
 package com.perficient.cloud.products.dao;
 
-import java.util.Map;
+import java.math.BigInteger;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +10,10 @@ import com.perficient.cloud.products.model.Product;
 @Repository
 public interface ProductsSearchDao {
 
-	public Map<Long, Product> findAllProducts();
+	public List<Product> findAllProducts();
 
-	public String findProductById(Long Id);
+	public Product findProductById(BigInteger Id);
+
+	public Product insert(Product p);
 
 }

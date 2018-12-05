@@ -5,6 +5,15 @@ public class Error {
 	private String errorCd;
 	private String errorMsg;
 
+	public Error(String errCd, String errMsg) {
+		this.errorCd = errCd;
+		this.errorMsg = errMsg;
+	}
+
+	public Error() {
+
+	}
+
 	public String getErrorCd() {
 		return errorCd;
 	}

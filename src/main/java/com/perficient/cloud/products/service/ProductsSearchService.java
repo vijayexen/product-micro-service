@@ -1,6 +1,7 @@
 package com.perficient.cloud.products.service;
 
-import java.util.Map;
+import java.math.BigInteger;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -12,17 +13,22 @@ public interface ProductsSearchService {
 	/**
 	 * Fetch Product string by Product ID
 	 * 
-	 * @param id
-	 *            - Product ID
-	 * @return - Product String
+	 * @param id - Product ID
+	 * @return - Product Object
 	 */
-	public String find(Long id);
+	public Product find(BigInteger id);
 
 	/**
 	 * Retrieve all Products with their product id's
 	 * 
 	 * @return Map of <Product ID, Product>
 	 */
-	public Map<Long, Product> retrieveAll();
+	public List<Product> retrieveAll();
+
+	/**
+	 * @param product
+	 * @return
+	 */
+	public Product create(Product product);
 
 }

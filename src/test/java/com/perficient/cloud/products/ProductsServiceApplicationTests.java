@@ -1,19 +1,24 @@
 package com.perficient.cloud.products;
 
-import java.util.Map;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.perficient.cloud.products.dao.ProductsSearchDao;
+import com.perficient.cloud.products.model.Price;
 import com.perficient.cloud.products.model.Product;
 import com.perficient.cloud.products.service.ProductsSearchService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@EnableMongoRepositories(basePackageClasses = ProductsSearchDao.class)
 public class ProductsServiceApplicationTests {
 
 	@Autowired
@@ -21,15 +26,32 @@ public class ProductsServiceApplicationTests {
 
 	@Test
 	public void testFindProductById() {
-		String actual = productSearchSrv.find(100L);
-		Assert.assertEquals("STORM", actual);
+		Product actual = productSearchSrv.find(new BigInteger("28481675540731914413735584123"));
+		Assert.assertEquals("STORM", actual.getName());
 
 	}
 
 	@Test
 	public void testFindAllProducts() {
-		Map<Long, Product> productsMap = null;//productSearchSrv.retrieveAll();
-		Assert.assertFalse(productsMap.isEmpty());
+//		Map<Long, Product> productsMap = null;// productSearchSrv.retrieveAll();
+//		Assert.assertFalse(productsMap.isEmpty());
+	}
+
+	@Test
+	public void saveObject() {
+		Product p = new Product();
+		p.setBandwidth("100MB");
+		p.setBuildingExtn("100200");
+		p.setName("STORM");
+		p.setRouter("NETGEAR");
+		p.setTransport("NTP");
+		Price price = new Price();
+		price.setBasePrice(BigDecimal.valueOf(20));
+		price.setDiscount(BigDecimal.valueOf(0));
+		price.setShippingCharge(BigDecimal.valueOf(2));
+		p.setPrice(price);
+
+		productSearchSrv.create(p);
 	}
 
 }
