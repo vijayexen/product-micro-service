@@ -1,6 +1,5 @@
 package com.perficient.cloud.products.service.impl;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,7 +19,7 @@ public class ProductsSearchServiceImpl implements ProductsSearchService {
 	ProductsSearchDao productSearchDao;
 
 	@Override
-	public Product find(BigInteger id) {
+	public Product find(String id) {
 
 		Error e;
 		log.info("findProductByID: ID: {}", String.valueOf(id));
@@ -56,7 +55,7 @@ public class ProductsSearchServiceImpl implements ProductsSearchService {
 	}
 
 	@Override
-	public Boolean delete(BigInteger id) {
+	public Boolean delete(String id) {
 		return productSearchDao.deleteById(id);
 	}
 

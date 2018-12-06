@@ -1,7 +1,5 @@
 package com.perficient.cloud.products.model;
 
-import java.math.BigInteger;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Product {
 
 	@Id
-	private BigInteger id;
+	private String id;
 	private String name;
 	private String transport;
 	private String bandwidth;
@@ -18,11 +16,11 @@ public class Product {
 	private Price price;
 	private Error error;
 
-	public BigInteger getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

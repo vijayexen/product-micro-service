@@ -1,6 +1,5 @@
 package com.perficient.cloud.products.dao.impl;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -26,14 +25,20 @@ public class ProductsSearchDaoImpl implements ProductsSearchDao {
 
 		Query q = new Query();
 		q.addCriteria(Criteria.byExample(Product.class));
+		
+		List<Product> products = null;
 
-		List<Product> products = this.mongoOperations.findAll(Product.class);
+		try {
+			products = this.mongoOperations.findAll(Product.class);
+		} catch (Exception e) {
+			log.error("Error", e);
+		}
 
 		return products;
 	}
 
 	@Override
-	public Product findProductById(BigInteger Id) {
+	public Product findProductById(String Id) {
 		log.debug("findProductById: ID: {}", Id);
 
 		Query query = new Query();
@@ -70,7 +75,7 @@ public class ProductsSearchDaoImpl implements ProductsSearchDao {
 	}
 
 	@Override
-	public Boolean deleteById(BigInteger id) {
+	public Boolean deleteById(String id) {
 
 		Query query = new Query();
 		query.addCriteria(Criteria.where("id").is(id));

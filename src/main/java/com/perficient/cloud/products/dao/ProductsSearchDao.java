@@ -1,6 +1,5 @@
 package com.perficient.cloud.products.dao;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -12,12 +11,12 @@ public interface ProductsSearchDao {
 
 	public List<Product> findAllProducts();
 
-	public Product findProductById(BigInteger Id);
+	public Product findProductById(String Id);
 
 	public Product insert(Product p);
 
 	public Boolean deleteProduct(Product product);
 
-	public Boolean deleteById(BigInteger id);
+	public Boolean deleteById(String id);
 
 }

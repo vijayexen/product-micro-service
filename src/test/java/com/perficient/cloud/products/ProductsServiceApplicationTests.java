@@ -1,7 +1,6 @@
 package com.perficient.cloud.products;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class ProductsServiceApplicationTests {
 
 	@Test
 	public void testFindProductById() {
-		Product actual = productSearchSrv.find(new BigInteger("28481675540731914413735584123"));
+		Product actual = productSearchSrv.find("28481675540731914413735584123");
 		Assert.assertEquals("STORM", actual.getName());
 	}
 
@@ -39,6 +38,7 @@ public class ProductsServiceApplicationTests {
 	@Test
 	public void saveObject() {
 		Product p = new Product();
+		p.setId(String.valueOf("28481675540731914413735584123"));
 		p.setBandwidth("100MB");
 		p.setBuildingExtn("100200");
 		p.setName("STORM");

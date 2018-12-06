@@ -1,6 +1,5 @@
 package com.perficient.cloud.products.service;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ public interface ProductsSearchService {
 	 * @param id - Product ID
 	 * @return - Product Object
 	 */
-	public Product find(BigInteger id);
+	public Product find(String id);
 
 	/**
 	 * Retrieve all Products with their product id's
@@ -41,6 +40,6 @@ public interface ProductsSearchService {
 	 * @param id
 	 * @return
 	 */
-	public Boolean delete(BigInteger id);
+	public Boolean delete(String id);
 
 }
