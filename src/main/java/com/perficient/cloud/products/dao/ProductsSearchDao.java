@@ -16,4 +16,8 @@ public interface ProductsSearchDao {
 
 	public Product insert(Product p);
 
+	public Boolean deleteProduct(Product product);
+
+	public Boolean deleteById(BigInteger id);
+
 }

@@ -28,13 +28,12 @@ public class ProductsServiceApplicationTests {
 	public void testFindProductById() {
 		Product actual = productSearchSrv.find(new BigInteger("28481675540731914413735584123"));
 		Assert.assertEquals("STORM", actual.getName());
-
 	}
 
 	@Test
 	public void testFindAllProducts() {
-//		Map<Long, Product> productsMap = null;// productSearchSrv.retrieveAll();
-//		Assert.assertFalse(productsMap.isEmpty());
+
+		Assert.assertTrue(productSearchSrv.retrieveAll().size() > 0);
 	}
 
 	@Test
@@ -51,7 +50,11 @@ public class ProductsServiceApplicationTests {
 		price.setShippingCharge(BigDecimal.valueOf(2));
 		p.setPrice(price);
 
-		productSearchSrv.create(p);
+		Product pInserted = productSearchSrv.create(p);
+		Product pActual = productSearchSrv.find(pInserted.getId());
+
+		Assert.assertEquals(p.getName(), pActual.getName());
+
 	}
 
 }

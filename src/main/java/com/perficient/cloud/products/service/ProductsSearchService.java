@@ -31,4 +31,16 @@ public interface ProductsSearchService {
 	 */
 	public Product create(Product product);
 
+	/**
+	 * @param p
+	 * @return
+	 */
+	public Boolean delete(Product p);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Boolean delete(BigInteger id);
+
 }

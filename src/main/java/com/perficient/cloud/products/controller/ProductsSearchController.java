@@ -7,13 +7,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.perficient.cloud.products.model.Product;
+import com.perficient.cloud.products.model.Error;
 import com.perficient.cloud.products.service.ProductsSearchService;
+import com.perficient.cloud.products.util.ProductsSearchUtils;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(path = "/products")
@@ -25,20 +30,56 @@ public class ProductsSearchController {
 	ProductsSearchService productSearchSrvc;
 
 	@Autowired
+	ProductsSearchUtils productsSearchUtils;
+
+	@Autowired
 	Gson gson;
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json", path = "/all")
+	@ApiOperation(value = "Retrieve all Products from Database")
 	public String getAllProducts() {
-		
+
 		log.debug("getAllProducts");
 		List<Product> products = productSearchSrvc.retrieveAll();
-		String productsArr = gson.toJson(products);
-		return productsArr;
+		return productsSearchUtils.toJson(products);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/search/{id}", produces = "application/json")
+	@ApiOperation(value = "Retrieve a Product from DB based on its ID")
 	public String findProductByID(@PathVariable("id") BigInteger id) {
-		
-		return gson.toJson(productSearchSrvc.find(id));
+
+		return productsSearchUtils.toJson(productSearchSrvc.find(id));
+	}
+
+	@RequestMapping(path = "/delete/{id}", produces = "application/json")
+	@ApiOperation(value = "Remove document by Product id")
+	public String deleteById(@PathVariable("id") BigInteger id) {
+
+		Product prod = productSearchSrvc.find(id);
+
+		if (!productSearchSrvc.delete(id)) {
+			Product p = new Product();
+			p.setId(id);
+			Error error = new Error("ERR1", "Product could not be found");
+			p.setError(error);
+			return productsSearchUtils.toJson(p);
+		}
+
+		return productsSearchUtils.toJson(prod);
+
+	}
+
+	@RequestMapping(path = "/delete", produces = "application/json", consumes = "application/json")
+	@ApiOperation(value = "Remove document by Product request body")
+	public String deleteByProduct(@RequestBody Product p) {
+
+		if (!productSearchSrvc.delete(p.getId())) {
+			Error error = new Error("ERR1", "Product could not be found");
+			p.setError(error);
+			return productsSearchUtils.toJson(p);
+		}
+
+		return productsSearchUtils.toJson(p);
+
 	}
 }

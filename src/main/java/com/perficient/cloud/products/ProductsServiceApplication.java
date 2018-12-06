@@ -6,7 +6,11 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import com.perficient.cloud.products.dao.ProductsSearchDao;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
+@EnableSwagger2
+
 @EnableMongoRepositories(basePackageClasses = ProductsSearchDao.class)
 public class ProductsServiceApplication {
 

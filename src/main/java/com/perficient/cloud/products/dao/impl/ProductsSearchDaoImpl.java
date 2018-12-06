@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import com.mongodb.client.result.DeleteResult;
 import com.perficient.cloud.products.dao.ProductsSearchDao;
 import com.perficient.cloud.products.model.Product;
 
@@ -50,8 +51,37 @@ public class ProductsSearchDaoImpl implements ProductsSearchDao {
 		if (null != p) {
 			mongoOperations.save(p);
 		}
-
 		return p;
+	}
+
+	@Override
+	public Boolean deleteProduct(Product product) {
+
+		Query query = new Query();
+		query.addCriteria(Criteria.where("id").is(product.getId()));
+
+		DeleteResult deletedResult = mongoOperations.remove(query, Product.class);
+
+		if (deletedResult.getDeletedCount() > 0) {
+			return Boolean.TRUE;
+		}
+
+		return Boolean.FALSE;
+	}
+
+	@Override
+	public Boolean deleteById(BigInteger id) {
+
+		Query query = new Query();
+		query.addCriteria(Criteria.where("id").is(id));
+
+		DeleteResult deletedResult = mongoOperations.remove(query, Product.class);
+
+		if (deletedResult.getDeletedCount() > 0) {
+			return Boolean.TRUE;
+		}
+
+		return Boolean.FALSE;
 	}
 
 }

@@ -31,7 +31,7 @@ public class ProductsSearchServiceImpl implements ProductsSearchService {
 			p.setId(id);
 			p.setError(e);
 		}
-		
+
 		log.info("findProductById: Returning Product {} for ID: {}", p.getName(), id);
 		return p;
 	}
@@ -40,7 +40,6 @@ public class ProductsSearchServiceImpl implements ProductsSearchService {
 	public List<Product> retrieveAll() {
 
 		List<Product> products = productSearchDao.findAllProducts();
-
 		return products;
 	}
 
@@ -48,6 +47,17 @@ public class ProductsSearchServiceImpl implements ProductsSearchService {
 	public Product create(Product product) {
 		productSearchDao.insert(product);
 		return product;
+	}
+
+	@Override
+	public Boolean delete(Product p) {
+
+		return productSearchDao.deleteProduct(p);
+	}
+
+	@Override
+	public Boolean delete(BigInteger id) {
+		return productSearchDao.deleteById(id);
 	}
 
 }
