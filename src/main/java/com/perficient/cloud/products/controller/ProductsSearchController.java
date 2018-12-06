@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.perficient.cloud.products.model.Product;
 import com.perficient.cloud.products.model.Error;
 import com.perficient.cloud.products.service.ProductsSearchService;
@@ -37,6 +38,7 @@ public class ProductsSearchController {
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json", path = "/all")
 	@ApiOperation(value = "Retrieve all Products from Database")
+	@HystrixCommand(fallbackMethod = "defaultGetAllProducts")
 	public String getAllProducts() {
 
 		log.debug("getAllProducts");
@@ -46,6 +48,7 @@ public class ProductsSearchController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/search/{id}", produces = "application/json")
 	@ApiOperation(value = "Retrieve a Product from DB based on its ID")
+	@HystrixCommand(fallbackMethod = "defaultFindProductByID")
 	public String findProductByID(@PathVariable("id") BigInteger id) {
 
 		return productsSearchUtils.toJson(productSearchSrvc.find(id));
@@ -53,6 +56,7 @@ public class ProductsSearchController {
 
 	@RequestMapping(path = "/delete/{id}", produces = "application/json")
 	@ApiOperation(value = "Remove document by Product id")
+	@HystrixCommand(fallbackMethod = "defaultDeleteById")
 	public String deleteById(@PathVariable("id") BigInteger id) {
 
 		Product prod = productSearchSrvc.find(id);
@@ -71,6 +75,7 @@ public class ProductsSearchController {
 
 	@RequestMapping(path = "/delete", produces = "application/json", consumes = "application/json")
 	@ApiOperation(value = "Remove document by Product request body")
+	@HystrixCommand(fallbackMethod = "defaultDeleteByProduct")
 	public String deleteByProduct(@RequestBody Product p) {
 
 		if (!productSearchSrvc.delete(p.getId())) {
@@ -82,4 +87,26 @@ public class ProductsSearchController {
 		return productsSearchUtils.toJson(p);
 
 	}
+
+	@SuppressWarnings("unused")
+	private String defaultGetAllProducts() {
+
+		return productsSearchUtils.defaultErrorServiceInaccessible();
+	}
+
+	@SuppressWarnings("unused")
+	private String defaultFindProductByID() {
+		return productsSearchUtils.defaultErrorServiceInaccessible();
+	}
+
+	@SuppressWarnings("unused")
+	private String defaultDeleteById() {
+		return productsSearchUtils.defaultErrorServiceInaccessible();
+	}
+
+	@SuppressWarnings("unused")
+	private String defaultDeleteByProduct() {
+		return productsSearchUtils.defaultErrorServiceInaccessible();
+	}
+
 }
