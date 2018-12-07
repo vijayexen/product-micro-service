@@ -36,18 +36,25 @@ public class ProductsSearchController {
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json", path = "/all")
 	@ApiOperation(value = "Retrieve all Products from Database")
-	public String getAllProducts() {
+	public List<Product> getAllProducts() {
 
 		log.debug("getAllProducts");
 		List<Product> products = productSearchSrvc.retrieveAll();
-		return productsSearchUtils.toJson(products);
+		return products;// productsSearchUtils.toJson(products);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/search/{id}", produces = "application/json")
+	@RequestMapping(method = RequestMethod.GET, path = "/search/id/{id}", produces = "application/json")
 	@ApiOperation(value = "Retrieve a Product from DB based on its ID")
 	public String findProductByID(@PathVariable("id") String id) {
 
 		return productsSearchUtils.toJson(productSearchSrvc.find(id));
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/search/name/{name}", produces = "application/json")
+	@ApiOperation(value = "Retrieve a Product from DB based on its name")
+	public String findProductByName(@PathVariable("name") String name) {
+
+		return productsSearchUtils.toJson(productSearchSrvc.findByName(name));
 	}
 
 	@RequestMapping(path = "/delete/{id}", produces = "application/json")
@@ -80,6 +87,14 @@ public class ProductsSearchController {
 
 		return productsSearchUtils.toJson(p);
 
+	}
+
+	@RequestMapping(path = "/create", produces = "application/json", consumes = "application/json")
+	@ApiOperation(value = "Create a new Product")
+	public Product insert(@RequestBody Product p) {
+
+		Product productInserted = productSearchSrvc.create(p);
+		return productInserted;
 	}
 
 }

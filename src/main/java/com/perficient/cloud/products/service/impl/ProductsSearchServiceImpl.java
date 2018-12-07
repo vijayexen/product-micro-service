@@ -59,4 +59,9 @@ public class ProductsSearchServiceImpl implements ProductsSearchService {
 		return productSearchDao.deleteById(id);
 	}
 
+	@Override
+	public Product findByName(String name) {
+		return productSearchDao.findByName(name);
+	}
+
 }

@@ -25,7 +25,7 @@ public class ProductsSearchDaoImpl implements ProductsSearchDao {
 
 		Query q = new Query();
 		q.addCriteria(Criteria.byExample(Product.class));
-		
+
 		List<Product> products = null;
 
 		try {
@@ -87,6 +87,17 @@ public class ProductsSearchDaoImpl implements ProductsSearchDao {
 		}
 
 		return Boolean.FALSE;
+	}
+
+	@Override
+	public Product findByName(String name) {
+
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").is(name));
+
+		Product prod = mongoOperations.findOne(query, Product.class);
+
+		return prod;
 	}
 
 }

@@ -16,6 +16,14 @@ public interface ProductsSearchService {
 	 * @return - Product Object
 	 */
 	public Product find(String id);
+	
+	/**
+	 * Fetch Product string by Product name
+	 * 
+	 * @param id - Product name
+	 * @return - Product Object
+	 */
+	public Product findByName(String name);
 
 	/**
 	 * Retrieve all Products with their product id's

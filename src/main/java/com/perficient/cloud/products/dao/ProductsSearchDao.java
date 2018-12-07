@@ -18,5 +18,7 @@ public interface ProductsSearchDao {
 	public Boolean deleteProduct(Product product);
 
 	public Boolean deleteById(String id);
+	
+	public Product findByName(String name);
 
 }
