@@ -43,6 +43,14 @@ public class ProductsSearchController {
 		return products;// productsSearchUtils.toJson(products);
 	}
 
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json", path = "/list")
+	public List<String> listProductNames() {
+		log.debug("listProductNames: ");
+
+		List<String> products = productSearchSrvc.retrieveProductNames();
+		return products;
+	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "/search/id/{id}", produces = "application/json")
 	@ApiOperation(value = "Retrieve a Product from DB based on its ID")
 	public String findProductByID(@PathVariable("id") String id) {

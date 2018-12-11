@@ -16,7 +16,7 @@ public interface ProductsSearchService {
 	 * @return - Product Object
 	 */
 	public Product find(String id);
-	
+
 	/**
 	 * Fetch Product string by Product name
 	 * 
@@ -49,5 +49,10 @@ public interface ProductsSearchService {
 	 * @return
 	 */
 	public Boolean delete(String id);
+
+	/**
+	 * @return
+	 */
+	public List<String> retrieveProductNames();
 
 }

@@ -1,5 +1,6 @@
 package com.perficient.cloud.products.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -62,6 +63,24 @@ public class ProductsSearchServiceImpl implements ProductsSearchService {
 	@Override
 	public Product findByName(String name) {
 		return productSearchDao.findByName(name);
+	}
+
+	@Override
+	public List<String> retrieveProductNames() {
+
+		log.debug("retrieveProductNames");
+		List<Product> listProds = productSearchDao.findAllProducts();
+		List<String> listProdNms = new ArrayList<String>();
+
+		if ((null != listProds) && (listProds.size()) > 0) {
+			for (Product p : listProds) {
+				listProdNms.add(p.getName());
+			}
+		}
+
+		log.debug("Retrieved Product Name list: {}", listProdNms);
+
+		return listProdNms;
 	}
 
 }
