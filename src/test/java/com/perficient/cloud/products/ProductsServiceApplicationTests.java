@@ -28,10 +28,15 @@ public class ProductsServiceApplicationTests {
 		Product actual = productSearchSrv.find("28481675540731914413735584123");
 		Assert.assertEquals("STORM", actual.getName());
 	}
+	
+	@Test
+	public void testFindProductByIdNotPresent() {
+		Product actual = productSearchSrv.find("0098");
+		Assert.assertNull(actual.getName());
+	}
 
 	@Test
 	public void testFindAllProducts() {
-
 		Assert.assertTrue(productSearchSrv.retrieveAll().size() > 0);
 	}
 
